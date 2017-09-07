@@ -65,15 +65,17 @@ function move(obj, opt) {
 var cameracount=99;//用于切换动作的计数器
 function cameraFocusing() {
     if(cameracount>0){
-      camera.position.z+=1;
+      camera.position.z+=10;
       cameracount--;
     }
     else{
-      camera.position.z-=1;
+      camera.position.z-=10;
       cameracount--;
-      console.log(cameracount);
-      if(cameracount<(-99)){
-        cameracount=99;
+      if(cameracount<-99){
+        camreacount=99;
       }
     }
+    console.log(cameracount==-99);
+    setTimeout("cameraFocusing()",100);
 }
+cameraFocusing();
