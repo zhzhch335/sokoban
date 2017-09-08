@@ -23,7 +23,6 @@
     <script src="js/stats.min.js"></script>
     <script src="js/STLLoader.js"></script>
     <script src="js/Cube.js"></script>
-    <script src="js/mapinit.js"></script>
     <script src="js/TRender.js"></script>
     <script src="js/animate.js"></script>
     <script src="js/operation.js"></script>

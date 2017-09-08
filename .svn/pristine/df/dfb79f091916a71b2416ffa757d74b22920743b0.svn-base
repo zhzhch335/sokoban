@@ -52,9 +52,8 @@ for (var i = 0; i <= 100; i += 10) {
     scene.add(rotateline);
 }
 var tempindex = 0;
-var temparray= initmap(100);
 // var temparray = [2, 2, 2, 0, 2, 1, 2, 1, 1, 0, 2, 1, 1, 0, 2, 0, 1, 1, 1, 0, 0, 0, 4, 2, 1, 1, 0, 2, 1, 2, 2, 2, 0, 1, 0, 2, 1, 0, 0, 1, 1, 2, 2, 2, 3, 1, 0, 1, 0, 2, 1, 1, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 2, 2, 2, 1, 0, 1, 1, 0, 0, 1, 0, 1, 2, 2, 0, 1, 1, 2, 1, 0, 0, 2, 0, 0, 0, 1, 1, 2, 0, 1, 0, 0, 2, 0, 0, 2, 2, 2];
-// var temparray = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 4, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 1, 1, 1, 0, 0, 1, 0, 1, 2, 0, 2, 4, 0, 0, 0, 0, 4, 0, 2, 3, 1, 1, 1, 0, 0, 1, 1, 1, 1, 2, 1, 0, 0, 0, 0, 0, 0, 0, 1, 4, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+var temparray = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 4, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 1, 1, 1, 0, 0, 1, 0, 1, 2, 0, 2, 4, 0, 0, 0, 0, 4, 0, 2, 3, 1, 1, 1, 0, 0, 1, 1, 1, 1, 2, 1, 0, 0, 0, 0, 0, 0, 0, 1, 4, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 // var temparray = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 //方块生成，使用二维数组
 // var cubes = new Array();
@@ -62,7 +61,7 @@ for (var i = 1; i <= 10; i++) {
     cubes[i] = new Array(); //避免一维数组未初始化时调用二维索引出错
     for (var j = 1; j <= 10; j++) {
         // var index = parseInt(Math.random() * 3);
-        var index = temparray[i-1][j-1];
+        var index = temparray[tempindex];
         switch (index) {
             case 4:
                 console.log(i, j);
@@ -70,7 +69,7 @@ for (var i = 1; i <= 10; i++) {
                 cubes[i][j] = {
                     state: 4
                 };
-                // tempindex++;
+                tempindex++;
                 break;
             case 3:
                 console.log(i, j);
@@ -78,21 +77,21 @@ for (var i = 1; i <= 10; i++) {
                 cubes[i][j] = {
                     state: 3
                 }; //更新数组
-                // tempindex++;
+                tempindex++;
                 break;
             case 2:
                 cubes[i][j] = new Cube(index, i, j, 'crate', (j - 1) * 10 + 5, 5, (i - 1) * 10 + 5);
                 // scene.add(cubes[i][j].cube);
-                // tempindex++;
+                tempindex++;
                 break;
             case 1:
                 cubes[i][j] = new Cube(index, i, j, 'bricks', (j - 1) * 10 + 5, 5, (i - 1) * 10 + 5);
                 // scene.add(cubes[i][j].cube);
-                // tempindex++;
+                tempindex++;
                 break;
             case 0:
                 cubes[i][j] = new Cube(0, i, j);
-                // tempindex++;
+                tempindex++;
             default:
                 continue;
         }
