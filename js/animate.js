@@ -13,7 +13,7 @@ function move(obj, opt) {
                     obj.position.z -= .2;
                     count++;
                 }
-            }, 10);
+            }, 5);
             break;
         case "↓":
             if (mover) {
@@ -27,7 +27,7 @@ function move(obj, opt) {
                     obj.position.z += .2;
                     count++;
                 }
-            }, 10);
+            }, 5);
             break;
         case "←":
             if (mover) {
@@ -41,7 +41,7 @@ function move(obj, opt) {
                     obj.position.x -= .2;
                     count++;
                 }
-            }, 10);
+            }, 5);
             break;
         case "→":
             if (mover) {
@@ -55,7 +55,7 @@ function move(obj, opt) {
                     obj.position.x += .2;
                     count++;
                 }
-            }, 10);
+            }, 5);
             break;
         default:
             return;
@@ -65,13 +65,12 @@ function move(obj, opt) {
 var cameracount=99;//用于切换动作的计数器
 function cameraFocusing() {
     if(cameracount>0){
-      camera.position.z+=1;
+      control.object.scale.z+=.01;
       cameracount--;
     }
     else{
-      camera.position.z-=1;
+      control.object.scale.z-=.01;
       cameracount--;
-      console.log(cameracount);
       if(cameracount<(-99)){
         cameracount=99;
       }
