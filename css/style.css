@@ -51,7 +51,7 @@ body {
   margin: 0 20px;
 }
 
-#answer1, #answer2, #answer3 {
+#answer2, #answer3 {
   visibility: hidden;
 }
 

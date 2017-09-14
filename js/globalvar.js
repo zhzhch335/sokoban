@@ -5,6 +5,7 @@ var ghost; //全局对象-人物
 var descube; //全局对象-终点
 var step = []; //用于存储游戏步骤
 var stepflag = []; //用于存储步骤中箱子的移动状态
+var temparray;//用于存储当前地图数据的临时数组
 
 //图形绘制
 var textureloader = THREE.ImageUtils;//材质加载器

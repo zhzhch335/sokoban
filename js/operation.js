@@ -5,16 +5,19 @@ document.getElementById("recover").onclick = function() {
   camera.position.set(50.06421484100598, 219.95842897735875, -33.78512665221608);
 };
 //监听键盘事件
-document.onkeydown = function(event) {
-  var choice = ghostdirection(event.key);
-  if (choice == "↑" || choice == "↓" || choice == "←" || choice == "→") {
-    document.getElementById("answer1").style.visibility = "hidden";
-    document.getElementById("answer2").style.visibility = "hidden";
-    document.getElementById("answer3").style.visibility = "hidden";
-    ghostmove(choice);
-    document.getElementById("num").innerHTML = step.length;
-  }
-};
+function addKeyboardEvent() {
+  document.onkeydown = function(event) {
+    var choice = ghostdirection(event.key);
+    if (choice == "↑" || choice == "↓" || choice == "←" || choice == "→") {
+      document.getElementById("answer1").style.visibility = "hidden";
+      document.getElementById("answer2").style.visibility = "hidden";
+      document.getElementById("answer3").style.visibility = "hidden";
+      ghostmove(choice);
+      document.getElementById("num").innerHTML = step.length;
+    }
+  };
+}
+addKeyboardEvent();
 //判断移动方向
 function ghostdirection(eventkey) {
   var x = camera.position.x;
@@ -218,7 +221,8 @@ document.getElementById("map").onclick = function() {
   document.getElementById("mapfile").click();
 };
 document.getElementById("mapfile").onchange = function() {
-  document.getElementById("answer1").style.visibility = "hidden";//避免加载错误解答
+  levelID=0;//记录值代表目前为外部关卡
+  document.getElementById("answer1").style.visibility = "hidden"; //避免加载错误解答
   document.getElementById("answer2").style.visibility = "hidden";
   document.getElementById("answer3").style.visibility = "hidden";
   var file = this.files[0]; //file类型的input框可以接受多个文件，修改属性即可
@@ -239,6 +243,7 @@ function initstep(arr) {
     draw = setInterval(function() {
       if (i == arr.length) {
         clearInterval(draw);
+        addKeyboardEvent();
         if (!descube.checkdes()) {
           document.getElementById("recover").style.visibility = "hidden";
           ghost = null;
@@ -273,6 +278,7 @@ document.getElementById("answerfile").onchange = function() {
     if (!["↑", "←", "↓", "→"].includes(arr[0])) {
       swal('解答文件格式错误', '请读入正确的解答文件', 'error');
     } else {
+      document.onkeydown = "";
       initstep(arr);
     }
   }
@@ -377,7 +383,10 @@ document.getElementById("back").onclick = function() {
 //重新开始
 document.getElementById("refresh").onclick = function() {
   clearInterval(draw); //停止自动完成
-  var answerstr = "answer" + levelID;
+  if (levelID) {
+    var answerstr = "answer" + levelID;
+    document.getElementById(answerstr).style.visibility = "visible";
+  }
   for (var i = 0; i < scene.children.length; i++) {
     if (scene.children[i] && scene.children[i].type == "Mesh") {
       scene.remove(scene.children[i]); //移除原有元素
@@ -418,26 +427,29 @@ document.getElementById("maid3").onclick = function() {
   initmap(arr);
 };
 document.getElementById("answer1").onclick = function() {
+  document.onkeydown = "";
   document.getElementById("answer1").style.visibility = "hidden";
   document.getElementById("answer2").style.visibility = "hidden";
   document.getElementById("answer3").style.visibility = "hidden";
   var arrstr = "↓,↑,←,←,→,↑,↑,↓,→,→";
-  var arr = arrstr.split(",");
-  initstep(arr);
+  temparray = arrstr.split(",");
+  initstep(temparray);
 };
 document.getElementById("answer2").onclick = function() {
+  document.onkeydown = "";
   document.getElementById("answer1").style.visibility = "hidden";
   document.getElementById("answer2").style.visibility = "hidden";
   document.getElementById("answer3").style.visibility = "hidden";
   var arrstr = "→,→,↓,↓,↓,↓,→,↓,↓,←,←,↑,→,↓,→,↑,←,↑,→,→,→,↓,→,↑,↑,↓,←,←,←,←,↑,↑,↑,↑,←,←,↓,→,↑,→,↓,↓,↓,↓,→,↓,↓,←,←,↑,→,↓,→,↑,←,↑,→,→,→,↓,→,↑,←,←,←,←,↑,↑,↑,←,←,↓,→,↑,→,↓,↓,↓,→,↓,↓,←,←,↑,→,↓,→,↑,←,↑,→,→,→";
-  var arr = arrstr.split(",");
-  initstep(arr);
+  temparray = arrstr.split(",");
+  initstep(temparray);
 };
 document.getElementById("answer3").onclick = function() {
+  document.onkeydown = "";
   document.getElementById("answer1").style.visibility = "hidden";
   document.getElementById("answer2").style.visibility = "hidden";
   document.getElementById("answer3").style.visibility = "hidden";
   var arrstr = "↑,↑,↓,↓,→,→,↑,←,↑,←,↑,↑,→,→,↓,↑,←,←,←,↓,←,↓,↓,→,↑,↑,↑,↓,↓,↓,↓,→,↑,↑,↑,←,↑,→";
-  var arr = arrstr.split(",");
-  initstep(arr);
+  temparray = arrstr.split(",");
+  initstep(temparray);
 };
