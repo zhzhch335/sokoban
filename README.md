@@ -11,6 +11,18 @@ sweetalert 弹窗美化
 Buttons 开源按钮样式库
 font-awesome 字体图标
 
+操作说明
+鼠标拖动调整视角
+鼠标滚轮调整远近
+使用wasd控制方向（根据视角调整前后左右）
+
+加载文件说明
+地图文件：10*10的矩阵先行后列的依次写出，使用英文逗号","分割，0代表空，1代表墙，2代表箱子，3代表人物，4代表终点
+（目前仅支持10*10的矩阵，若文件内元素不足100则无法读取文件）
+示例参考loadfiles文件夹下的1.map.txt文件
+解答文件：每个步骤使用↑↓←→来标注每一步的步骤，使用英文逗号","分割
+示例参考loadfiles文件夹下的1.answer.txt文件
+
 目录结构
 css
 ./button.css 开源按钮样式库
@@ -46,5 +58,8 @@ js
 ./three.min.js 3D图形基类
 ./TRender.js 3D组件初始化
 ./UI.js UI控制
+loadfiles 示例地图文件和解答文件
+./*.map.txt 地图文件
+./*.answer.txt 解答文件
 index.html
 README.md

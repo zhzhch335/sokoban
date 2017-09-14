@@ -8,10 +8,9 @@ document.getElementById("recover").onclick = function() {
 document.onkeydown = function(event) {
   var choice = ghostdirection(event.key);
   if (choice == "↑" || choice == "↓" || choice == "←" || choice == "→") {
-    document.getElementById("answer1").disabled = true;
-    document.getElementById("answer2").disabled = true;
-    document.getElementById("answer3").disabled = true;
-    document.getElementById("answer").disabled = true; //按下键盘后答案不可用以免出错
+    document.getElementById("answer1").style.visibility = "hidden";
+    document.getElementById("answer2").style.visibility = "hidden";
+    document.getElementById("answer3").style.visibility = "hidden";
     ghostmove(choice);
     document.getElementById("num").innerHTML = step.length;
   }
@@ -213,12 +212,15 @@ function initmap(arr) {
   } else {
     swal('地图文件格式错误', '请读入正确的地图文件', 'error');
   }
-};
+}
 //载入地图
 document.getElementById("map").onclick = function() {
   document.getElementById("mapfile").click();
 };
 document.getElementById("mapfile").onchange = function() {
+  document.getElementById("answer1").style.visibility = "hidden";//避免加载错误解答
+  document.getElementById("answer2").style.visibility = "hidden";
+  document.getElementById("answer3").style.visibility = "hidden";
   var file = this.files[0]; //file类型的input框可以接受多个文件，修改属性即可
   var reader = new FileReader();
   reader.readAsText(file);
@@ -253,7 +255,6 @@ function initstep(arr) {
       document.getElementById("num").innerHTML = step.length;
       i++;
     }, 1000);
-    document.getElementById("answer").disabled = true; //避免二次加载引发的错误
   } catch (e) {
     swal('解答文件格式错误', '请读入正确的解答文件', 'error');
   }
@@ -269,10 +270,9 @@ document.getElementById("answerfile").onchange = function() {
   reader.onload = function(e) {
     var arrstr = this.result;
     var arr = arrstr.split(",");
-    if(!["↑", "←", "↓", "→"].includes(arr[0])){
+    if (!["↑", "←", "↓", "→"].includes(arr[0])) {
       swal('解答文件格式错误', '请读入正确的解答文件', 'error');
-    }
-    else{
+    } else {
       initstep(arr);
     }
   }
@@ -280,9 +280,10 @@ document.getElementById("answerfile").onchange = function() {
 //后退一步
 document.getElementById("back").onclick = function() {
   clearInterval(draw); //停止自动完成
-  document.getElementById("answer1").disabled = true;
-  document.getElementById("answer2").disabled = true;
-  document.getElementById("answer3").disabled = true; //避免在中途开始自动完成
+  document.getElementById("answer1").style.visibility = "hidden";
+  document.getElementById("answer2").style.visibility = "hidden";
+  document.getElementById("answer3").style.visibility = "hidden";
+  //避免在中途开始自动完成
   var laststep = step.pop();
   var lastflag = stepflag.pop();
   if (laststep) {
@@ -377,7 +378,6 @@ document.getElementById("back").onclick = function() {
 document.getElementById("refresh").onclick = function() {
   clearInterval(draw); //停止自动完成
   var answerstr = "answer" + levelID;
-  document.getElementById(answerstr).disabled = false;
   for (var i = 0; i < scene.children.length; i++) {
     if (scene.children[i] && scene.children[i].type == "Mesh") {
       scene.remove(scene.children[i]); //移除原有元素
@@ -393,50 +393,50 @@ document.getElementById("refresh").onclick = function() {
 document.getElementById("maid1").onclick = function() {
   clearInterval(draw); //停止自动完成
   levelID = 1;
-  document.getElementById("answer1").disabled = false;
-  document.getElementById("answer2").disabled = true;
-  document.getElementById("answer3").disabled = true;
+  document.getElementById("answer1").style.visibility = "visible";
+  document.getElementById("answer2").style.visibility = "hidden";
+  document.getElementById("answer3").style.visibility = "hidden";
   var arr = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 4, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 1, 1, 1, 0, 0, 1, 1, 1, 2, 0, 2, 4, 1, 0, 0, 1, 4, 0, 2, 3, 1, 1, 1, 0, 0, 1, 1, 1, 1, 2, 1, 0, 0, 0, 0, 0, 0, 0, 1, 4, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
   initmap(arr);
 };
 document.getElementById("maid2").onclick = function() {
   clearInterval(draw); //停止自动完成
   levelID = 2;
-  document.getElementById("answer1").disabled = true;
-  document.getElementById("answer2").disabled = false;
-  document.getElementById("answer3").disabled = true;
+  document.getElementById("answer1").style.visibility = "hidden";
+  document.getElementById("answer2").style.visibility = "visible";
+  document.getElementById("answer3").style.visibility = "hidden";
   var arr = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 2, 2, 1, 1, 1, 1, 1, 1, 1, 0, 2, 0, 1, 1, 1, 4, 1, 1, 1, 1, 1, 0, 1, 1, 1, 4, 1, 1, 1, 1, 1, 0, 0, 0, 0, 4, 1, 1, 1, 1, 0, 0, 0, 1, 0, 0, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
   initmap(arr);
 };
 document.getElementById("maid3").onclick = function() {
   clearInterval(draw); //停止自动完成
   levelID = 3;
-  document.getElementById("answer1").disabled = true;
-  document.getElementById("answer2").disabled = true;
-  document.getElementById("answer3").disabled = false;
+  document.getElementById("answer1").style.visibility = "hidden";
+  document.getElementById("answer2").style.visibility = "hidden";
+  document.getElementById("answer3").style.visibility = "visible";
   var arr = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 4, 4, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 4, 0, 0, 1, 1, 1, 1, 0, 0, 0, 1, 2, 1, 1, 1, 1, 1, 0, 2, 0, 0, 4, 1, 1, 1, 1, 1, 0, 0, 2, 2, 0, 0, 1, 1, 1, 1, 1, 0, 3, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
   initmap(arr);
 };
 document.getElementById("answer1").onclick = function() {
-  document.getElementById("answer1").disabled = true;
-  document.getElementById("answer2").disabled = true;
-  document.getElementById("answer3").disabled = true;
+  document.getElementById("answer1").style.visibility = "hidden";
+  document.getElementById("answer2").style.visibility = "hidden";
+  document.getElementById("answer3").style.visibility = "hidden";
   var arrstr = "↓,↑,←,←,→,↑,↑,↓,→,→";
   var arr = arrstr.split(",");
   initstep(arr);
 };
 document.getElementById("answer2").onclick = function() {
-  document.getElementById("answer1").disabled = true;
-  document.getElementById("answer2").disabled = true;
-  document.getElementById("answer3").disabled = true;
+  document.getElementById("answer1").style.visibility = "hidden";
+  document.getElementById("answer2").style.visibility = "hidden";
+  document.getElementById("answer3").style.visibility = "hidden";
   var arrstr = "→,→,↓,↓,↓,↓,→,↓,↓,←,←,↑,→,↓,→,↑,←,↑,→,→,→,↓,→,↑,↑,↓,←,←,←,←,↑,↑,↑,↑,←,←,↓,→,↑,→,↓,↓,↓,↓,→,↓,↓,←,←,↑,→,↓,→,↑,←,↑,→,→,→,↓,→,↑,←,←,←,←,↑,↑,↑,←,←,↓,→,↑,→,↓,↓,↓,→,↓,↓,←,←,↑,→,↓,→,↑,←,↑,→,→,→";
   var arr = arrstr.split(",");
   initstep(arr);
 };
 document.getElementById("answer3").onclick = function() {
-  document.getElementById("answer1").disabled = true;
-  document.getElementById("answer2").disabled = true;
-  document.getElementById("answer3").disabled = true;
+  document.getElementById("answer1").style.visibility = "hidden";
+  document.getElementById("answer2").style.visibility = "hidden";
+  document.getElementById("answer3").style.visibility = "hidden";
   var arrstr = "↑,↑,↓,↓,→,→,↑,←,↑,←,↑,↑,→,→,↓,↑,←,←,←,↓,←,↓,↓,→,↑,↑,↑,↓,↓,↓,↓,→,↑,↑,↑,←,↑,→";
   var arr = arrstr.split(",");
   initstep(arr);

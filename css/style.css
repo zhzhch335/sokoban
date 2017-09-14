@@ -36,7 +36,7 @@ body {
   top: 30%;
 }
 
-.closebtn{
+.closebtn {
   position: absolute;
   top: 60%;
   left: 48%;
@@ -49,6 +49,10 @@ body {
 #maid1, #maid2, #maid3, #answer1, #answer2, #answer3 {
   width: 120px;
   margin: 0 20px;
+}
+
+#answer1, #answer2, #answer3 {
+  visibility: hidden;
 }
 
 #maid1 {
@@ -237,13 +241,13 @@ body {
   animation: square-spin 3s 0s cubic-bezier(.09, .57, .49, .9) infinite;
 }
 
-.loader>.text{
+.loader>.text {
   position: absolute;
   left: 50%;
   top: 60%;
 }
 
-#recover{
+#recover {
   position: absolute;
   right: 5%;
   top: 45%;
