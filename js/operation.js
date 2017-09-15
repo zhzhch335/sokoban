@@ -285,6 +285,7 @@ document.getElementById("answerfile").onchange = function() {
 };
 //后退一步
 document.getElementById("back").onclick = function() {
+  addKeyboardEvent();
   clearInterval(draw); //停止自动完成
   document.getElementById("answer1").style.visibility = "hidden";
   document.getElementById("answer2").style.visibility = "hidden";

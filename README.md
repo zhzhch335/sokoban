@@ -1,6 +1,12 @@
 # sokoban 推箱子
 这是一个主要使用threejs框架写的推箱子游戏
 
+浏览器支持：
+FireFox 23+
+Chrome 33+
+IE 11
+Edge
+
 使用的主要框架有：
 threejs 3D图形的渲染
 OrbitControls 3D视角的控制
